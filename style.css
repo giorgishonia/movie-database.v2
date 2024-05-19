@@ -1,0 +1,517 @@
+.container {
+    text-align: center;
+}
+
+#searchInput {    
+    width: 90%;
+    height: 44px;
+    border: none !important;
+    border-bottom: 0!important;
+    outline: 0;
+    font-family: Arial,sans-serif;
+    font-style: italic;
+    font-size: 100%;
+    color: #acacac;
+    text-indent: 0;
+    padding-right: 20px;
+}
+
+#searchInput:active,
+#searchInput:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+#searchButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: "Source Sans 3", sans-serif;
+
+}
+
+#searchResults {
+    margin-top: 20px;
+    text-align: center; /* Center the content inside the container horizontally */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 70%;
+    align-items: flex-start;
+    font-family: "Source Sans 3", sans-serif;
+
+}
+
+.movieItem {
+    font-family: "Source Sans 3", sans-serif;
+    display: flex;
+    align-items: center;
+    align-self: baseline;
+
+    margin-bottom: 10px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.186);
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: start;
+    height: 141px;
+}
+
+.movieItem img:hover{
+    transition: 200ms ease-in-out;
+    filter: brightness(0.7);
+}
+
+.movieItem img {
+    transition: 200ms;
+    width: auto;
+    height: 100%;
+    margin-right: 15px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    object-fit: cover;
+}
+
+.movieInfo {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-box{
+    display: flex;
+    justify-content: space-between;
+}
+
+.movieInfo p {
+    margin: 5px 0;
+}
+
+body{
+    background-color: white;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    font-family: "Source Sans 3", sans-serif;
+}
+    
+
+p{
+    color: white;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: start;
+    color: #333;
+}
+
+.year {
+    font-size: 14px;
+    color: #666;
+}
+
+.type {
+    font-size: 14px;
+    color: #007bff;
+}
+
+@media (max-width: 768px) {
+    #searchResults {
+        flex-direction: column;  /* Stack items vertically on smaller screens */
+        align-items: center;  /* Center items horizontally */
+    }
+
+    .movieItem {
+        width: 100%;  /* Full width to take up the entire container */
+    }
+}
+
+.error-message {
+    color: #ff0000;  /* Red color for errors */
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+/* CSS for styling actor images and names */
+.actorsSection{
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.actorName{
+    color: black;
+}
+
+#movieDetails p{
+    color: black;
+}
+
+#movieDetails img{
+    width: 200px;
+}
+
+.actorDiv {
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.crewSection {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.crewDiv {
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#movieDetail{
+    background-color: black;
+}
+.actorInfo {
+    text-align: center;
+}
+
+.actorInfo p {
+    margin: 5px 0;
+}
+
+.moviesSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.movieDiv {
+    width: 200px;
+    margin: 10px;
+    text-align: center;
+}
+
+.movieImg {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.movieInfo {
+    margin-top: 5px;
+}
+
+#pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#pagination button, #pagination span {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Source Sans 3", sans-serif;
+
+}
+
+#pagination button.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#pagination button:hover {
+    background-color: #e0e0e0;
+}
+
+#pagination button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+
+.carousel-container {
+    margin-bottom: 20px;
+}
+
+.carousel-list {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    margin-right: 10px;
+    scroll-snap-align: start;
+}
+
+.carousel-item{
+    background-color: white;
+    border-radius: 15px;
+}
+
+.actor-image,
+.member-image {
+    width: 138px; /* Adjust as needed */
+    height: 175px; /* Adjust as needed */
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+}
+
+.actor-container,
+.member-container {
+    text-align: start;
+}
+
+.actor-details,
+.member-details {
+    padding-top: 8px;
+}
+
+#movieDetails{
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
+
+.search-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.titleContainer {
+    display: flex; /* Use flexbox to align items horizontally */
+    align-items: center; /* Align items vertically in the center */
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 10px; /* Add margin to separate the titles */
+}
+
+.originalTitle {
+    font-size: 16px;
+    margin-left: 7px;
+    color: gray;
+    font-weight: normal;
+}
+
+#searchOptions{
+    position: relative;
+    width: 250px;
+    min-width: 185px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: white;
+    height: fit-content;
+    border: 1px solid rgba(44, 43, 43, 0.43);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-weight: 100;
+    font-family: "Source Sans 3", sans-serif;
+    font-size: 20px;
+}
+
+#searchOptions button{
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    text-align: start;
+    padding: 15px;
+    font-family: "Source Sans 3", sans-serif;
+    width: 100%;
+}
+
+.optionsContainer{
+    position: relative;
+}
+
+#searchOptions p{
+    position: absolute;
+    right: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 16px;
+    min-width: 20px;
+    text-align: center;
+    background-color: rgb(235, 235, 235);
+    border-radius: 5px;
+}
+
+#searchOptions button:hover{
+    background-color: rgb(216, 216, 216);
+}
+
+.option-title{
+    background-color: #01b4e4;
+    font-weight: 600;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#networksButton{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.type, .year, .title{
+    margin: 0;
+}
+
+.itemInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nav-box{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.search-button-container{
+    display: flex;
+    align-items: center;
+}
+
+p{
+    color: black;
+}
+
+.results-container{
+    display: flex;
+}
+
+.optionsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px; /* Adjust spacing between each container */
+}
+
+.overview{
+    margin: 0;
+    width: 98%;
+}
+
+.suggestion {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.suggestion:hover {
+    background-color: #f0f0f0;
+}
+
+.quicktip-text{
+    position: absolute;
+    bottom: -80px;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    color: gray;
+}
+
+#searchContainer{
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#errorMessage{
+    position: absolute;
+    bottom: -35px;
+    left: 75px;
+}
+
+/* Style for carousel container */
+.carousel-container {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.carousel-list {
+    display: flex;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    cursor: grab;
+    padding-bottom: 10px;
+}
+
+.carousel-list.active {
+    cursor: grabbing;
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    width: 150px;
+    margin-right: 10px;
+}
+
+.actor-container {
+    text-align: center;
+}
+
+.actor-image {
+    width: 100%;
+    height: 225px;
+    border-top-left-radius: 15px;  /* Rounded top-left corner */
+    border-top-right-radius: 15px; /* Rounded top-right corner */
+}
+
+.actor-details {
+    margin-top: -15px;
+}
+
+.actor-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.actor-role {
+    color: gray;
+    font-size: 0.9em;
+}
+
+.show-more-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.show-more-button:hover {
+    background-color: #0056b3;
+}

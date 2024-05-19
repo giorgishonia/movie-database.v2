@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+        </style>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Database Search</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap">
+</head>
+<body>
+    <div id="searchBar">
+ <div id="searchContainer">
+        <span id="searchIcon" style="font-size: 20px; margin-left: 70px;">⌕</span>
+        <input type="text" id="searchInput" placeholder="Search...">
+        <p id="errorMessage" style="color: red;"></p>
+    </div>
+    
+        <div class="search-container">
+            <div id="searchOptions">
+                <div class="option-title">Search Results</div>
+                <div class="optionsContainer">
+                    <button id="movieButton">Movie</button> 
+                    <p id="movieCount">0</p>
+                </div>
+            
+                <div class="optionsContainer">
+                    <button id="tvShowButton">TV Show</button>
+                    <p id="tvCount">0</p>
+                </div>
+            
+                <!-- <div class="optionsContainer">
+                    <button id="keywordsButton">Keywords</button>
+                </div> -->
+            
+                <div class="optionsContainer">
+                    <button id="collectionsButton">Collections</button> 
+                    <p id="collectionsCount">0</p>
+                </div>
+            
+                <div class="optionsContainer">
+                    <button id="peopleButton">People</button>
+                    <p id="peopleCount">0</p>
+                </div>
+            
+                <div class="optionsContainer">
+                    <button id="companiesButton">Companies</button>
+                    <p id="companiesCount">0</p>
+                </div>
+                <div class="quicktip-text">
+                    Tip: You can use the 'y:' filter to narrow your results by year. Example: 'star wars y:1977'.
+                </div>
+            </div>  
+                      
+                <div id="searchResults"></div>
+            </div>
+        </div>
+        <div id="pagination"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="searchPage.js"></script>
+</body>
+</html>

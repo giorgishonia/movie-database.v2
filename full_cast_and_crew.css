@@ -1,0 +1,28 @@
+/* Styles for full cast and crew page */
+.actors-list, .crew-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.actor-item, .crew-item {
+    flex: 0 0 150px;
+    text-align: center;
+}
+
+.actor-item img, .crew-item img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.actor-name, .crew-name {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.actor-role, .crew-job {
+    color: gray;
+    font-size: 0.9em;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMDB</title>
+    <link rel="stylesheet" href="mainStyle.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="logo.png" alt="TMDB">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Movies</a></li>
+                    <li><a href="#">TV Shows</a></li>
+                    <li><a href="#">People</a></li>
+                    <li><a href="#">More</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="welcome-section">
+            <h1>Welcome.</h1>
+            <p>Millions of movies, TV shows and people to discover. Explore now.</p>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search for a movie, tv show, person...">
+                <button id="searchButton">Search</button>
+            </div>
+        </section>
+
+        <section class="trending-section">
+            <h2>Trending</h2>
+            <div class="trending-buttons">
+                <button id="todayButton" class="active">Today</button>
+                <button id="thisWeekButton">This Week</button>
+            </div>
+            <div id="trendingMovies" class="movie-carousel"></div>
+        </section>
+    </main>
+
+    <script src="mainScript.js"></script>
+</body>
+</html>
