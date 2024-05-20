@@ -9,6 +9,40 @@ if (previousSearchTerm) {
     searchMovies();
 }
 
+function wait(duration) {
+    return new Promise(resolve => setTimeout(resolve, duration));
+}
+
+async function searchMoviesWithDelay() {
+    // Hide search results
+    const searchResults = document.getElementById('searchResults');
+    searchResults.style.display = 'none';
+
+    // Hide pagination and apply loader style
+    const pagination = document.getElementById('pagination');
+    pagination.style.display = 'none';
+
+    // Show loader and position in the center
+    const loader = document.getElementById('loader');
+    loader.style.display = 'block';
+    loader.style.position = 'fixed';
+    loader.style.top = '20%';
+    loader.style.left = '50%';
+    loader.style.transform = 'translate(-50%, -50%)';
+
+    // Wait for 1.5 seconds (1500 milliseconds) before executing the search
+    await wait(1000);
+    searchMovies();
+
+    // Show search results and hide loader after search is complete
+    searchResults.style.display = 'block';
+    loader.style.display = 'none';
+
+    // Show pagination after search is complete
+    pagination.style.display = 'block';
+}
+
+// Call searchMoviesWithDelay instead of searchMovies
 document.getElementById('searchInput').addEventListener('keypress', async (event) => {
     if (event.key === 'Enter') {
         const searchTerm = document.getElementById('searchInput').value.trim(); // Trimmed to remove white spaces
@@ -16,7 +50,7 @@ document.getElementById('searchInput').addEventListener('keypress', async (event
         
         if (searchTerm !== '') {
             currentPage = 1; // Reset currentPage when a new search is initiated
-            searchMovies();
+            searchMoviesWithDelay(); // Call searchMoviesWithDelay instead of searchMovies
         } else {
             // Clear the previous search results and hide pagination buttons
             document.getElementById('searchResults').innerHTML = '';
@@ -61,10 +95,11 @@ document.getElementById('companiesButton').addEventListener('click', () => {
     searchMovies();
 });
 
-function searchMovies() {
+async function searchMovies() {
     const searchTermInput = document.getElementById('searchInput').value.trim();
     const errorMessageElement = document.getElementById('errorMessage');
-    
+    const loader = document.getElementById('loader');
+
     if (!searchTermInput) {
         // Clear the previous search results and hide pagination buttons
         document.getElementById('searchResults').innerHTML = '';
@@ -75,6 +110,9 @@ function searchMovies() {
     } else {
         errorMessageElement.textContent = ''; // Clear any previous error messages
     }
+
+    // Show loader
+    loader.style.display = 'block';
 
     const { searchTerm, year } = parseSearchTerm(searchTermInput);
 
@@ -103,10 +141,15 @@ function searchMovies() {
             renderPagination();
             updateCounts(response.data); // Update counts after search is completed
 
+            // Hide loader
+            loader.style.display = 'none';
+
             // Log the API response data
             console.log(response.data);
         } catch (error) {
             console.error(error);
+            // Hide loader in case of error
+            loader.style.display = 'none';
         }
     }
 
