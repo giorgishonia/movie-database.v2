@@ -241,13 +241,13 @@ main {
     height: 70%;
     text-align: center;
     width: 70%;
-    font-size: 15px;
+    font-size: 11px;
     align-self: center;
     border: none;
     font-weight: bold;
     color: rgba(255, 255, 255, 0.95);
     z-index: 1;
-    font-family: 'LovelyValentineSans-vmLA7';
+    font-family: source sans pro;
     background-color: rgb(8, 28, 34)!important;
     margin-top: 0.5px;
 }
