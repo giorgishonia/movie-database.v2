@@ -7,9 +7,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (id && searchType) {
         const detailsUrl = `${baseUrl}/${searchType}/${id}/credits`;
+        const movieDetailsUrl = `${baseUrl}/${searchType}/${id}`;
         const detailsOptions = {
             method: 'GET',
             url: detailsUrl,
+            params: { api_key: '170e9c0b74242721b6786d03329c6fd8' }
+        };
+
+        const movieOptions = {
+            method: 'GET',
+            url: movieDetailsUrl,
             params: { api_key: '170e9c0b74242721b6786d03329c6fd8' }
         };
 
@@ -17,15 +24,32 @@ document.addEventListener('DOMContentLoaded', async () => {
             const detailsResponse = await axios.request(detailsOptions);
             const detailsData = detailsResponse.data;
 
+            const movieResponse = await axios.request(movieOptions);
+            const movieData = movieResponse.data;
+
             const detailsDiv = document.getElementById('fullCastAndCrew');
             detailsDiv.innerHTML = '';
 
+            displayMovieInfo(movieData);
             displayFullCredits(detailsData, detailsDiv);
         } catch (error) {
             console.error(error);
         }
     }
+
+    const backToMainButton = document.getElementById('backToMain');
+    backToMainButton.addEventListener('click', () => {
+        window.location.href = '/'; // Adjust this to the actual main page URL
+    });
 });
+
+function displayMovieInfo(movieData) {
+    const movieTitle = document.getElementById('movieTitle');
+    const moviePoster = document.getElementById('moviePoster');
+
+    movieTitle.textContent = movieData.title || movieData.name || 'Title not found';
+    moviePoster.src = movieData.poster_path ? `https://image.tmdb.org/t/p/w500${movieData.poster_path}` : 'default_movie_poster.png';
+}
 
 function displayFullCredits(creditsData, detailsDiv) {
     const actors = creditsData.cast;
@@ -34,7 +58,7 @@ function displayFullCredits(creditsData, detailsDiv) {
     // Actors Section
     const actorsSection = document.createElement('div');
     const actorsHeader = document.createElement('h2');
-    actorsHeader.textContent = 'Full Cast';
+    actorsHeader.textContent = `Series Cast (${actors.length})`;
     actorsSection.appendChild(actorsHeader);
     const actorsList = document.createElement('div');
     actorsList.classList.add('actors-list');
@@ -75,27 +99,46 @@ function displayFullCredits(creditsData, detailsDiv) {
     if (crew && crew.length > 0) {
         const crewSection = document.createElement('div');
         const crewHeader = document.createElement('h2');
-        crewHeader.textContent = 'Full Crew';
+        crewHeader.textContent = `Series Crew (${crew.length})`;
         crewSection.appendChild(crewHeader);
         const crewList = document.createElement('div');
         crewList.classList.add('crew-list');
 
-        crew.forEach(member => {
-            const memberItem = document.createElement('div');
-            memberItem.classList.add('crew-item');
+        const crewByDepartment = groupByDepartment(crew);
 
-            const memberName = document.createElement('p');
-            memberName.textContent = member.name;
-            memberItem.appendChild(memberName);
+        for (const department in crewByDepartment) {
+            const departmentHeader = document.createElement('h3');
+            departmentHeader.textContent = department;
+            crewSection.appendChild(departmentHeader);
 
-            const memberJob = document.createElement('p');
-            memberJob.textContent = member.job;
-            memberItem.appendChild(memberJob);
+            crewByDepartment[department].forEach(member => {
+                const memberItem = document.createElement('div');
+                memberItem.classList.add('crew-item');
 
-            crewList.appendChild(memberItem);
-        });
+                const memberName = document.createElement('p');
+                memberName.textContent = member.name;
+                memberItem.appendChild(memberName);
+
+                const memberJob = document.createElement('p');
+                memberJob.textContent = member.job;
+                memberItem.appendChild(memberJob);
+
+                crewList.appendChild(memberItem);
+            });
+        }
 
         crewSection.appendChild(crewList);
         detailsDiv.appendChild(crewSection);
     }
+}
+
+function groupByDepartment(crew) {
+    return crew.reduce((acc, member) => {
+        const department = member.department || 'Other';
+        if (!acc[department]) {
+            acc[department] = [];
+        }
+        acc[department].push(member);
+        return acc;
+    }, {});
 }

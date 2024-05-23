@@ -237,6 +237,12 @@ function displayResults(data) {
 
         if (item.poster_path) {
             img.src = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+        } else if (item.backdrop_path) {
+            img.src = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
+        } else if (currentSearchType === 'person' && item.profile_path) {
+            img.src = `https://image.tmdb.org/t/p/w500${item.profile_path}`;
+        } else if (currentSearchType === 'company' && item.logo_path) {
+            img.src = `https://image.tmdb.org/t/p/w500${item.logo_path}`;
         } else {
             img.src = 'demo-image.png'; // Path to your demo image
         }
@@ -244,7 +250,11 @@ function displayResults(data) {
         img.style.cursor = 'pointer';
         img.onclick = () => {
             const searchTerm = encodeURIComponent(document.getElementById('searchInput').value.trim());
-            window.location.href = `movieDetails.html?id=${item.id}&searchType=${currentSearchType}&query=${searchTerm}`;
+            if (currentSearchType === 'person') {
+                window.location.href = `actorDetails.html?id=${item.id}&query=${searchTerm}`;
+            } else {
+                window.location.href = `movieDetails.html?id=${item.id}&searchType=${currentSearchType}&query=${searchTerm}`;
+            }
         };
 
         const infoDiv = document.createElement('div');
@@ -253,113 +263,112 @@ function displayResults(data) {
         const titleContainer = document.createElement('div');
         titleContainer.classList.add('titleContainer');
 
-        const title = document.createElement('p');
-        title.classList.add('title');
+        const title = document.createElement('h3');
         title.textContent = item.title || item.name;
         titleContainer.appendChild(title);
 
         if ((item.title && item.original_title && item.title !== item.original_title) ||
-            (item.name && item.original_name && item.name !== item.original_name
-            )) {
-                const originalTitle = document.createElement('p');
-                originalTitle.classList.add('originalTitle');
-                originalTitle.textContent = item.original_title || item.original_name;
-                titleContainer.appendChild(originalTitle);
-            }
-    
-            infoDiv.appendChild(titleContainer);
-    
-            // Limit overview text to 280 characters with three dots (...) if necessary
-            const overview = document.createElement('p');
-            overview.classList.add('overview');
-            overview.textContent = item.overview ? truncateText(item.overview, 263) : 'No overview available';
-            infoDiv.appendChild(overview);
-    
-            const releaseDate = document.createElement('p');
-            releaseDate.classList.add('year');
-            releaseDate.textContent = item.release_date || item.first_air_date;
-            infoDiv.appendChild(releaseDate);
-    
-            itemDiv.appendChild(img);
-            itemDiv.appendChild(infoDiv);
-            resultsDiv.appendChild(itemDiv);
-        });
-    }
-    
-    function truncateText(text, maxLength) {
-        if (text.length > maxLength) {
-            return text.substring(0, maxLength - 3) + '...';
-        } else {
-            return text;
+            (item.name && item.original_name && item.name !== item.original_name)) {
+            const originalTitle = document.createElement('p');
+            originalTitle.classList.add('originalTitle');
+            originalTitle.textContent = item.original_title || item.original_name;
+            titleContainer.appendChild(originalTitle);
         }
-    }
-    
-    function updateCounts() {
-        const searchTermInput = document.getElementById('searchInput').value;
-        const { searchTerm, year } = parseSearchTerm(searchTermInput);
-    
-        const types = ['movie', 'tv', 'person', 'collection', 'company'];
-        types.forEach(type => {
-            const options = {
-                method: 'GET',
-                url: `https://api.themoviedb.org/3/search/${type}`,
-                params: {
-                    api_key: '170e9c0b74242721b6786d03329c6fd8',
-                    query: searchTerm,
-                    page: 1
-                }
-            };
-    
-            // Include year filter in the request if provided
-            if (year) {
-                if (type === 'movie' || type === 'tv') {
-                    options.params['year'] = year;
-                }
-            }
-    
-            axios.request(options).then(response => {
-                const count = response.data.total_results;
-                if (type === 'movie') {
-                    document.getElementById('movieCount').textContent = `${count}`;
-                } else if (type === 'tv') {
-                    document.getElementById('tvCount').textContent = `${count}`;
-                } else if (type === 'person') {
-                    document.getElementById('peopleCount').textContent = `${count}`;
-                } else if (type === 'collection') {
-                    document.getElementById('collectionsCount').textContent = `${count}`;
-                } else if (type === 'company') {
-                    document.getElementById('companiesCount').textContent = `${count}`;
-                }
-            }).catch(error => {
-                console.error(`Error fetching ${type} count:`, error);
+
+        infoDiv.appendChild(titleContainer);
+
+                // Limit overview text to 280 characters with three dots (...) if necessary
+                const overview = document.createElement('p');
+                overview.classList.add('overview');
+                overview.textContent = item.overview ? truncateText(item.overview, 263) : 'No overview available';
+                infoDiv.appendChild(overview);
+        
+                const releaseDate = document.createElement('p');
+                releaseDate.classList.add('year');
+                releaseDate.textContent = item.release_date || item.first_air_date;
+                infoDiv.appendChild(releaseDate);
+        
+                itemDiv.appendChild(img);
+                itemDiv.appendChild(infoDiv);
+                resultsDiv.appendChild(itemDiv);
             });
+        }
+        
+        function truncateText(text, maxLength) {
+            if (text.length > maxLength) {
+                return text.substring(0, maxLength - 3) + '...';
+            } else {
+                return text;
+            }
+        }
+        
+        function updateCounts() {
+            const searchTermInput = document.getElementById('searchInput').value;
+            const { searchTerm, year } = parseSearchTerm(searchTermInput);
+        
+            const types = ['movie', 'tv', 'person', 'collection', 'company'];
+            types.forEach(type => {
+                const options = {
+                    method: 'GET',
+                    url: `https://api.themoviedb.org/3/search/${type}`,
+                    params: {
+                        api_key: '170e9c0b74242721b6786d03329c6fd8',
+                        query: searchTerm,
+                        page: 1
+                    }
+                };
+        
+                // Include year filter in the request if provided
+                if (year) {
+                    if (type === 'movie' || type === 'tv') {
+                        options.params['year'] = year;
+                    }
+                }
+        
+                axios.request(options).then(response => {
+                    const count = response.data.total_results;
+                    if (type === 'movie') {
+                        document.getElementById('movieCount').textContent = `${count}`;
+                    } else if (type === 'tv') {
+                        document.getElementById('tvCount').textContent = `${count}`;
+                    } else if (type === 'person') {
+                        document.getElementById('peopleCount').textContent = `${count}`;
+                    } else if (type === 'collection') {
+                        document.getElementById('collectionsCount').textContent = `${count}`;
+                    } else if (type === 'company') {
+                        document.getElementById('companiesCount').textContent = `${count}`;
+                    }
+                }).catch(error => {
+                    console.error(`Error fetching ${type} count:`, error);
+                });
+            });
+        }
+        
+        function parseSearchTerm(searchTerm) {
+            const regex = /(.+)\s+y:(\d{4})/; // Regular expression to match the search term and year filter
+            const match = searchTerm.match(regex);
+            if (match) {
+                return {
+                    searchTerm: match[1].trim(),
+                    year: parseInt(match[2])
+                };
+            } else {
+                return {
+                    searchTerm,
+                    year: null
+                };
+            }
+        }
+        
+        // Initialize counts on page load
+        updateCounts();
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const queryParams = new URLSearchParams(window.location.search);
+            const searchTerm = queryParams.get('query');
+            if (searchTerm) {
+                document.getElementById('searchInput').value = decodeURIComponent(searchTerm);
+                searchMovies(); // Trigger search if a search term is provided in the URL
+            }
         });
-    }
-    
-    function parseSearchTerm(searchTerm) {
-        const regex = /(.+)\s+y:(\d{4})/; // Regular expression to match the search term and year filter
-        const match = searchTerm.match(regex);
-        if (match) {
-            return {
-                searchTerm: match[1].trim(),
-                year: parseInt(match[2])
-            };
-        } else {
-            return {
-                searchTerm,
-                year: null
-            };
-        }
-    }
-    
-    // Initialize counts on page load
-    updateCounts();
-    
-    document.addEventListener('DOMContentLoaded', () => {
-        const queryParams = new URLSearchParams(window.location.search);
-        const searchTerm = queryParams.get('query');
-        if (searchTerm) {
-            document.getElementById('searchInput').value = decodeURIComponent(searchTerm);
-            searchMovies(); // Trigger search if a search term is provided in the URL
-        }
-    });
+        

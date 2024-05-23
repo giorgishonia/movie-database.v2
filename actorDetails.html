@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actor Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+            width: 100vw;
+        }
+
+        .container {
+            display: flex;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .left-side, .right-side {
+            flex: 1;
+        }
+
+        .right-side{
+            padding-top: 20px;
+        }
+
+        .left-side {
+            padding-right: 20px;
+            padding-left: 80px;
+            padding-top: 20px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: start;
+            padding-bottom: 20px;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .profile-image img {
+            width: 293px;
+    border-radius: 15px;
+    margin-right: 20px;
+}
+        
+
+        .profile-info {
+            width: 75%;
+        }
+
+        .profile-info h1 {
+            margin: 0;
+        }
+
+        .known-for{
+            width: 80vw;
+        }
+
+        .known-for,
+        .personal-info,
+        .acting {
+            margin-top: 20px;
+        }
+        .acting {
+    margin-top: 20px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+        .movie-list {
+            display: flex;
+            overflow-x: auto; /* Enable horizontal scrolling */
+            scroll-snap-type: x mandatory;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+        }
+
+        .movie-list img {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+            width: 100px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 10px;
+            transition: 200ms;
+            box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.271);
+        }
+
+        .movie-list img:hover {
+            filter: brightness(0.7);
+            transition: 200ms;
+        }
+
+        .role-list .role {
+            margin-bottom: 10px;
+        }
+
+        .role-list .role h3 {
+            margin: 5px 0;
+        }
+
+        .movie-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            overflow-y: hidden;
+            padding: 10px;
+            height: 235px;
+        }
+
+        .movie-carousel img {
+            width: 110px;
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 5px;
+        }
+
+        @font-face {
+            font-family: source sans pro;
+            src: url(./SourceSansPro-Regular.otf);
+        }
+
+        body {
+            font-family: source sans pro;
+        }
+
+        .movie-item p {
+            font-family: source sans pro;
+            font-size: 13px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .movie-item {
+            width: 110px;
+        }
+
+        #knownForMovies::-webkit-scrollbar {
+            border-radius: 5px;
+            height: 8px;
+        }
+
+        #knownForMovies::-webkit-scrollbar-thumb {
+            background-color: #DBDBDB;
+            border-radius: 5px;
+            scrollbar-width: 2px;
+        }
+
+        #knownForMovies {
+            height: 240px;
+            width: 75%;
+        }
+
+        #biography {
+            font-size: 15px;
+        }
+
+        #biography div {
+            margin-top: 20px;
+        }
+
+        #actorName {
+            font-size: 32px;
+        }
+
+        .social-links img{
+            width:  30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-side">
+            <div class="profile-header">
+                <div class="profile-image">
+                    <img id="profileImage" src="" alt="Profile Image">
+                </div>
+            </div>
+            <div class="social-links">
+                <a id="facebookLink" href="#" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+                <a id="twitterLink" href="#" target="_blank"><img src="twitter.png" alt="Twitter"></a>
+                <a id="instagramLink" href="#" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+                <a id="youtubeLink" href="#" target="_blank"><img src="youtube.png" alt="YouTube"></a>
+            </div>
+    
+            <div class="personal-info">
+                <h2>Personal Info</h2>
+                <ul>
+
+                </div>
+                    <li><strong>Known For: </strong><span id="knownFor">Acting</span></li>
+                    <li><strong>Known Credits: </strong><span id="knownCredits">117</span></li>
+                    <li><strong>Gender: </strong><span id="gender">Male</span></li>
+                    <li><strong>Birthday: </strong><span id="birthday">December 19, 1980 (43 years old)</span></li>
+                    <li><strong>Place of Birth: </strong><span id="placeOfBirth">Los Angeles, California, USA</span></li>
+                    <li><strong>Also Known As: </strong><span id="alsoKnownAs">List of names</span></li>
+                </ul>
+            </div>
+            <div class="right-side">
+                <div class="profile-info">
+                    <h1 id="actorName">Actor Name</h1>
+                    <h2 style="margin: 0; margin-top: 15px; padding: 0; font-size: 18px;">Biography</h2>
+                    <p id="biography">Biography</p>
+                </div>
+                <div class="known-for">
+                    <h2>Known For</h2>
+                    <div id="knownForMovies" class="movie-list">
+                        <!-- Movie posters will be inserted here -->
+                    </div>
+                </div>
+                <div class="acting">
+                    <h2>Acting</h2>
+                    <div id="actingRoles" class="role-list">
+                        <!-- Acting roles will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+    </div>
+
+    <script>
+        // scripts.js
+        document.addEventListener('DOMContentLoaded', () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const actorId = queryParams.get('id');
+
+    if (actorId) {
+        fetchActorDetails(actorId);
+    }
+});
+
+async function fetchActorDetails(actorId) {
+    const apiKey = '170e9c0b74242721b6786d03329c6fd8'; // Replace with your TMDB API key
+    const apiUrl = `https://api.themoviedb.org/3/person/${actorId}?api_key=${apiKey}&append_to_response=movie_credits`;
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Failed to fetch actor details');
+        }
+
+        const data = await response.json();
+        console.log(data);
+        displayActorDetails(data);
+    } catch (error) {
+        console.error('Error fetching actor details:', error);
+    }
+}
+
+function displayActorDetails(data) {
+    document.getElementById('profileImage').src = `https://image.tmdb.org/t/p/w500${data.profile_path}`;
+    document.getElementById('actorName').textContent = data.name;
+
+    const biographyContainer = document.getElementById('biography');
+    biographyContainer.innerHTML = '';
+    const biographyLines = data.biography.split('\n');
+    biographyLines.forEach(line => {
+        const div = document.createElement('div');
+        div.textContent = line;
+        biographyContainer.appendChild(div);
+    });
+
+    document.getElementById('knownFor').textContent = data.known_for_department;
+    document.getElementById('knownCredits').textContent = data.movie_credits.cast.length;
+    document.getElementById('gender').textContent = data.gender === 2 ? 'Male' : 'Female';
+    document.getElementById('birthday').textContent = `${data.birthday} (${calculateAge(data.birthday)} years old)`;
+    document.getElementById('placeOfBirth').textContent = data.place_of_birth;
+    document.getElementById('alsoKnownAs').textContent = data.also_known_as.join(', ');
+
+    const knownForContainer = document.getElementById('knownForMovies');
+    const movies = data.movie_credits.cast;
+    knownForContainer.innerHTML = ''; // Clear any existing content
+    movies.forEach(movie => {
+        const movieDiv = document.createElement('div');
+        movieDiv.classList.add('movie-item');
+
+        const img = document.createElement('img');
+        img.src = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'demo-image.png';
+        img.alt = movie.title || 'Unknown Title';
+        img.addEventListener('click', () => {
+            window.location.href = `movieDetails.html?id=${movie.id}&searchType=movie&query=${encodeURIComponent(movie.title)}`;
+        });
+
+        const title = document.createElement('p');
+        title.classList.add('movie-title');
+        title.textContent = movie.title || 'Unknown Title';
+
+        movieDiv.appendChild(img);
+        movieDiv.appendChild(title);
+        knownForContainer.appendChild(movieDiv);
+    });
+
+    const actingRolesContainer = document.getElementById('actingRoles');
+    actingRolesContainer.innerHTML = '';
+    const actingRoles = data.movie_credits.cast;
+
+    const moviesByYear = {};
+    actingRoles.forEach(role => {
+        const releaseYear = role.release_date ? new Date(role.release_date).getFullYear() : 'Unknown';
+        if (!moviesByYear[releaseYear]) {
+            moviesByYear[releaseYear] = [];
+        }
+        moviesByYear[releaseYear].push(role);
+    });
+
+    const years = Object.keys(moviesByYear).sort((a, b) => b - a);
+
+    years.forEach(year => {
+        const yearDiv = document.createElement('div');
+        yearDiv.innerHTML = `<h3>${year}</h3>`;
+        actingRolesContainer.appendChild(yearDiv);
+
+        moviesByYear[year].forEach(role => {
+            const roleDiv = document.createElement('div');
+            roleDiv.classList.add('role');
+            const roleInfo = document.createElement('p');
+            roleInfo.textContent = `— ${role.title}`;
+            if (role.character) {
+                roleInfo.textContent += ` as ${role.character}`;
+            }
+            if (role.release_date) {
+                roleInfo.textContent += `\n${role.release_date}`;
+            }
+            roleDiv.appendChild(roleInfo);
+            yearDiv.appendChild(roleDiv);
+        });
+    });
+}
+
+function calculateAge(birthday) {
+    const birthDate = new Date(birthday);
+    const ageDifMs = Date.now() - birthDate.getTime();
+    const ageDate = new Date(ageDifMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+async function fetchExternalIds(actorId) {
+    const apiKey = '170e9c0b74242721b6786d03329c6fd8';
+    const url = `https://api.themoviedb.org/3/person/${actorId}/external_ids?api_key=${apiKey}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to fetch external IDs');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching external IDs:', error);
+        return null;
+    }
+}
+
+const actorId = '4720'; // Example actor ID
+fetchExternalIds(actorId)
+    .then(data => {
+        if (data) {
+            console.log('External IDs:', data);
+            const facebook = data.facebook_id ? `https://www.facebook.com/${data.facebook_id}` : null;
+            const twitter = data.twitter_id ? `https://twitter.com/${data.twitter_id}` : null;
+            const instagram = data.instagram_id ? `https://www.instagram.com/${data.instagram_id}` : null;
+            const youtube = data.youtube_id ? `https://www.youtube.com/user/${data.youtube_id}` : null;
+
+            document.getElementById('facebookLink').href = facebook || '#';
+            document.getElementById('twitterLink').href = twitter || '#';
+            document.getElementById('instagramLink').href = instagram || '#';
+            document.getElementById('youtubeLink').href = youtube || '#';
+        } else {
+            console.log('External IDs not found');
+        }
+    });
+
+</script>
+</body>
+</html>

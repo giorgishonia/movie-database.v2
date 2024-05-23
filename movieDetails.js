@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             const detailsData = detailsResponse.data;
             console.log('Details Data:', detailsData);
 
-
             const rightDiv = document.querySelector('.right-div');
             if (rightDiv) {
                 const originalNameTitle = document.createElement('h2');
@@ -449,13 +448,18 @@ function displayCredits(creditsData, detailsDiv, urlParams, detailsData) {
 
     detailsDiv.appendChild(actorsContainer);
 
-    actors.slice(0, 9).forEach(actor => {
+    actors.forEach(actor => {
         const actorItem = document.createElement('div');
         actorItem.classList.add('carousel-item');
-
+    
         const actorContainer = document.createElement('div');
         actorContainer.classList.add('actor-container');
-
+    
+        // Add event listener to navigate to actordetails.html with actor ID as query parameter
+        actorContainer.addEventListener('click', () => {
+            window.location.href = `actordetails.html?id=${actor.id}`;
+        });
+    
         const actorImage = document.createElement('img');
         actorImage.classList.add('actor-image');
         if (actor.profile_path) {
@@ -465,27 +469,28 @@ function displayCredits(creditsData, detailsDiv, urlParams, detailsData) {
         }
         actorImage.alt = actor.name;
         actorContainer.appendChild(actorImage);
-
+    
         const actorDetails = document.createElement('div');
         actorDetails.classList.add('actor-details');
-
+    
         let actorName = actor.name.split(' ').slice(0, 2).join(' '); // Limit to first two words
         const actorNameElement = document.createElement('p');
         actorNameElement.classList.add('actor-name');
         actorNameElement.textContent = actorName;
         actorDetails.appendChild(actorNameElement);
-
+    
         if (actor.character) {
             const actorRole = document.createElement('p');
             actorRole.classList.add('actor-role');
             actorRole.textContent = actor.character.split(' ').join('\n'); // Split role into separate lines
             actorDetails.appendChild(actorRole);
         }
-
+    
         actorContainer.appendChild(actorDetails);
         actorItem.appendChild(actorContainer);
         actorsList.appendChild(actorItem);
     });
+    
 
     const showMoreItem = document.createElement('div');
     showMoreItem.classList.add('carousel-item');
