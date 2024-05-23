@@ -88,7 +88,10 @@ main {
     background-color: #2c3e50;
     color: #fff;
     border-radius: 15px;
+<<<<<<< HEAD
     background-position: 0% 60%;
+=======
+>>>>>>> 9b97fe0a9c820fed33bb8372e4d8ce63832ed36c
 }
 
 .welcome-section h1 {
@@ -266,6 +269,10 @@ main {
     font-weight: bold;
     color: rgba(255, 255, 255, 0.95);
     z-index: 1;
+<<<<<<< HEAD
+=======
+    font-family: source sans pro;
+>>>>>>> 9b97fe0a9c820fed33bb8372e4d8ce63832ed36c
     background-color: rgb(8, 28, 34)!important;
     margin-top: 0.5px;
     font-family: source sans pro;
