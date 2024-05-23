@@ -457,7 +457,7 @@ function displayCredits(creditsData, detailsDiv, urlParams, detailsData) {
     
         // Add event listener to navigate to actordetails.html with actor ID as query parameter
         actorContainer.addEventListener('click', () => {
-            window.location.href = `actordetails.html?id=${actor.id}`;
+            window.location.href = `actorDetails.html?id=${actor.id}`;
         });
     
         const actorImage = document.createElement('img');
