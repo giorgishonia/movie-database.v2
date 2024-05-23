@@ -269,14 +269,9 @@ main {
     font-weight: bold;
     color: rgba(255, 255, 255, 0.95);
     z-index: 1;
-<<<<<<< HEAD
-=======
+    background-color: rgb(8 30 37) !important;
     font-family: source sans pro;
->>>>>>> 9b97fe0a9c820fed33bb8372e4d8ce63832ed36c
-    background-color: rgb(8, 28, 34)!important;
     margin-top: 0.5px;
-    font-family: source sans pro;
-
 }
 
 /* Additional styles */
